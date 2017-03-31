@@ -43,6 +43,7 @@ CREATE TABLE public.product
     sku text,
     name text,
     description text,
+    image_url text,
     price integer,
     item_qty integer,
     discount integer,
