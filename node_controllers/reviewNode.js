@@ -12,13 +12,25 @@ module.exports = {
 };
 
 function createReview(req, res) {
-	res.status(501).send("TO BE IMPLEMENTED")
+	var reviewData = {
+		product_id:req.body.product_id,
+		rating:req.body.rating,
+		review_text:req.body.review_text,
+		author_name:req.body.author_name,
+	};
+	db.product_review.insert(reviewData, function(err, newReview) {
+		utils.handleReturn("reviewNode.createReview",err,newReview,res);
+	});
 }
 
 function getReviewById(req, res) {
-	res.status(501).send("TO BE IMPLEMENTED")
+	db.product_review.findOne({id:req.params.id}, function (err,review) {
+		utils.handleReturn("reviewNode.getReviewById",err,review,res);
+    });
 }
 
 function getReviewList(req, res) {
-	res.status(501).send("TO BE IMPLEMENTED")
+	db.run("SELECT * FROM product_review", function(err, reviewList) {
+		utils.handleReturn("reviewNode.getReviewList",err, reviewList, res);
+	});
 }

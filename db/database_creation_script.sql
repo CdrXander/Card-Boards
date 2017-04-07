@@ -1,9 +1,11 @@
 --  DELETE DATABASE     =   =   =   =   =   =   =
+DROP TABLE IF EXISTS product_review;
 DROP TABLE IF EXISTS cb_order;
 DROP TABLE IF EXISTS order_status;
 DROP TABLE IF EXISTS sale;
 DROP TABLE IF EXISTS product;
 
+DROP SEQUENCE IF EXISTS product_review_pk;
 DROP SEQUENCE IF EXISTS cb_order_pk;
 DROP SEQUENCE IF EXISTS order_status_pk;
 DROP SEQUENCE IF EXISTS sale_pk;
@@ -36,6 +38,11 @@ CREATE SEQUENCE public.cb_order_pk
     MINVALUE 1
 ;
 
+CREATE SEQUENCE public.product_review_pk
+    INCREMENT BY 1
+    START WITH 100
+    MINVALUE 1
+;
 -- Tables
 CREATE TABLE public.product
 (
@@ -54,7 +61,7 @@ CREATE TABLE public.product
 CREATE TABLE public.sale
 (
     id integer NOT NULL DEFAULT nextval('sale_pk'),
-    sale_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    sale_date TIMESTAMP NOT NULL DEFAULT NOW(),
     paypal_transaction_id text,
     customer_name text,
     customer_email text,
@@ -75,11 +82,23 @@ CREATE TABLE public.cb_order
     id integer NOT NULL DEFAULT nextval('cb_order_pk'),
     sale_id integer,
     status_id integer,
-    date_created TIMESTAMP WITH TIME ZONE,
-    date_shipped TIMESTAMP WITH TIME ZONE,
+    date_created TIMESTAMP DEFAULT NOW(),
+    date_shipped TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (sale_id) REFERENCES public.sale(id),
     FOREIGN KEY (status_id) REFERENCES public.order_status(id)
+);
+
+CREATE TABLE public.product_review
+(
+    id integer NOT NULL DEFAULT nextval('product_review_pk'),
+    product_id integer,
+    rating integer,
+    review_text text,
+    author_name text,
+    create_date TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id) REFERENCES public.product(id)
 );
 
 -- INITIALIZATION DATA  =   =   =   =   =   =   =
@@ -93,3 +112,6 @@ INSERT INTO public.order_status VALUES (4,'RE-OPENED');
 
 INSERT INTO public.product VALUES (1, 'CB001','Card Board','A single Card Board', 249,1,0,159);
 INSERT INTO public.product VALUES (2, 'CB002','Family Pack','4 Card Boards', 996,1,0,259);
+
+INSERT INTO public.product_review VALUES (1,1,5,'This product is good','P. Qubiley Wortington');
+INSERT INTO public.product_review VALUES (2,1,1,'This product is bad','R. Fussybutt Jeffery');

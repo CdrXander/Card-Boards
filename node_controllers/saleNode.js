@@ -14,7 +14,7 @@ module.exports = {
 	getOpenOrders:getOpenOrders
 }
 
-function createSalesRecord(req, res) {
+function createSaleRecord(req, res) {
 	res.status(501).send("TO BE IMPLEMENTED")
 }
 

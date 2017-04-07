@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(session({
 	saveUninitialized:true,
 	resave: false, 
-	secret: config.session.secret,
+	secret: config.session_secret,
 	cookie: {secure:false, httpOnly:false}
 }));
 app.use(express.static(__dirname + '/public'));
@@ -32,7 +32,7 @@ var db = app.get('db');
 //Import Node Controllers
 var productNode = require('./node_controllers/productNode.js');
 var saleNode	= require('./node_controllers/saleNode');
-var reviewNode	= require('./node_controllers/reviewNode.js')
+var reviewNode	= require('./node_controllers/reviewNode.js');
 
 //Custom Middleware
 var authCheck = function(req,res,next) {
@@ -41,9 +41,14 @@ var authCheck = function(req,res,next) {
 
 //END POINTS    =   =   =   =   =   =   =   =   =   =   =   =   =   =
 
+//Test
+app.get('/api/test', function(req,res) {
+    res.status(200).send("TEST WORKING");
+});
+
 //Products
-app.get('/api/product/:id', productNode.getProductById);
 app.get('/api/product/list', productNode.getProductList);
+app.get('/api/product/:id', productNode.getProductById);
 app.get('/api/product/gallery', productNode.getProductGallery);
 app.put('/api/product', authCheck, productNode.updateProduct);
 
@@ -57,8 +62,9 @@ app.get('/api/order/list/open', authCheck, saleNode.getOpenOrders);
 
 //Reviews
 app.post('/api/review', reviewNode.createReview);
-app.get('/api/review/:id', reviewNode.getReviewById);
 app.get('/api/review/list', reviewNode.getReviewList);
+app.get('/api/review/:id', reviewNode.getReviewById);
+
 
 
 //SPIN UP THE DRIVES    =   =   =   =   =   =   =   =   =   =   =   =

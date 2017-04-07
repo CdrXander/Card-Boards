@@ -1,5 +1,3 @@
-var app = require('./../server.js');
-
 module.exports = {
 	handleReturn:handleReturn
 };

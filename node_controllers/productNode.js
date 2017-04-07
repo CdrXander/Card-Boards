@@ -2,7 +2,7 @@
  * Created by Xander on 3/21/2017.
  */
 var app 	= require('./../server.js');
-var utils	= require('./../node_controllers/utils_node.js');
+var utils	= require('./utils_node.js');
 var db 		= app.get('db');
 
 
