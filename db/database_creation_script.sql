@@ -115,3 +115,14 @@ INSERT INTO public.product VALUES (2, 'CB002','Family Pack','4 Card Boards', 996
 
 INSERT INTO public.product_review VALUES (1,1,5,'This product is good','P. Qubiley Wortington');
 INSERT INTO public.product_review VALUES (2,1,1,'This product is bad','R. Fussybutt Jeffery');
+
+INSERT INTO public.sale (id,paypal_transaction_id,customer_name, customer_email,product_id)
+VALUES (1,'pptest_001','Cust','cust@cust.com',1);
+INSERT INTO public.sale (id,paypal_transaction_id,customer_name, customer_email,product_id)
+VALUES (2,'pptest_002','CustA','custa@cust.com',2);
+INSERT INTO public.sale (id,paypal_transaction_id,customer_name, customer_email,product_id)
+VALUES (3,'pptest_003','CustB','custb@cust.com',1);
+
+INSERT INTO cb_order (id,sale_id,status_id) VALUES (1,1,1);
+INSERT INTO cb_order (id,sale_id,status_id) VALUES (2,2,1);
+INSERT INTO cb_order (id,sale_id,status_id) VALUES (3,3,2);
