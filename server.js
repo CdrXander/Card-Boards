@@ -54,7 +54,6 @@ app.put('/api/product', authCheck, productNode.updateProduct);
 
 //Sales
 app.post('/api/sale', saleNode.createSaleRecord);
-app.post('/api/order', saleNode.createOrderRecord);
 app.put('/api/order', authCheck, saleNode.updateOrder);
 app.get('/api/sale/list', authCheck, saleNode.getSalesList);
 app.get('/api/order/list', authCheck, saleNode.getOrderList);

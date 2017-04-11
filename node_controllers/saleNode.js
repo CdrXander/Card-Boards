@@ -7,7 +7,6 @@ var db 		= app.get('db');
 
 module.exports = {
 	createSaleRecord:createSaleRecord,
-	createOrderRecord:createOrderRecord,
 	updateOrder:updateOrder,
 	getSalesList:getSalesList,
 	getOrderList:getOrderList,
@@ -23,7 +22,7 @@ function createSaleRecord(req, res) {
 		product_id:req.body.product_id
 	};
 	db.sale.insert(saleRecord, function (err, newSale) {
-		
+
 		var orderRecord = {
 			sale_id:newSale.id,
 			status_id:1
@@ -34,12 +33,15 @@ function createSaleRecord(req, res) {
     });
 }
 
-function createOrderRecord(req, res) {
-	res.status(501).send("TO BE IMPLEMENTED")
-}
-
 function updateOrder(req, res) {
-	res.status(501).send("TO BE IMPLEMENTED")
+	var updatedOrder = {
+		id:req.body.id,
+		status_id:req.body.status_id
+	};
+
+	db.cb_order.update(updatedOrder, function(err, updatedOrder) {
+		utils.handleReturn("saleNode.updateOrder",err,updatedOrder,res);
+	});
 }
 
 function getSalesList(req, res) {
@@ -52,7 +54,6 @@ function getOrderList(req, res) {
 	db.run("SELECT * FROM cb_order", function(err, orderList) {
 		utils.handleReturn("saleNode.getOrderList",err,orderList,res);
     });
-	res.status(501).send("TO BE IMPLEMENTED")
 }
 
 function getOpenOrders(req, res) {
