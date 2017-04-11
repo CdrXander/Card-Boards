@@ -35,7 +35,7 @@ function createSaleRecord(req, res) {
 
 function updateOrder(req, res) {
 	var updatedOrder = {
-		id:req.body.id,
+		id:req.body.product_id,
 		status_id:req.body.status_id
 	};
 

@@ -20,13 +20,13 @@ gulp.task('build-css', function() {
         .pipe(concat('styles.css'))			//Concat all output of those files into styles.css
         .pipe(sourcemaps.write('./'))	//Write out original files. THIS IS FOR DEBUGGING
         .pipe(gulp.dest('./dist/css'));			//Write everything out into a folder called dist
-})
+});
 
 gulp.task('clean', function(cb) {
 	del([
 		'dist'
 		], cb);
-})
+});
 
 gulp.task('build-js', function() {
    return gulp.src(['js/**/*.js','js/*.js', './directives/*.js'])
